@@ -78,22 +78,12 @@ int get_height(TreeNode* node) { // 트리의 높이 구하는 함수
 	return height;
 }
 
-TreeNode* delete_All(TreeNode* root) { // 노드 전체 free
-	if (root == NULL) return root;
-
-	root->left = delete_All(root->left);
-	if (root->left != NULL) {
-		free(root->left);
-		root->left = NULL;
+void delete_All(TreeNode* root) { // 노드 전체 free
+	if (root != NULL) {
+		delete_All(root->left);
+		delete_All(root->right);
+		free(root);
 	}
-
-	root->right = delete_All(root->right);
-	if (root->right != NULL) {
-		free(root->right);
-		root->right = NULL;
-	}
-
-	return root;
 }
 
 int main() {
